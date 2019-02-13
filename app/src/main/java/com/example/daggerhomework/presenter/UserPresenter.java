@@ -46,6 +46,10 @@ public class UserPresenter implements UserContract.Presenter, Subscriber<UserMod
 
     @Override
     public void setUser(String user) {
-        this.user = user;
+        if (user == null) {
+            this.user = "mojombo";
+        } else {
+            this.user = user;
+        }
     }
 }

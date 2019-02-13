@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".view.repo.details.RepoDetailsActivity">
+    android:background="#995585">
 
     <TextView
         android:id="@+id/repo_name"
+        tools:text="NAME"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Space
@@ -17,6 +18,7 @@
         android:layout_height="40dp" />
 
     <TextView
+        tools:text="description descriptiondescription descriptiondescription descriptiondescription descriptiondescription descriptiondescription description"
         android:id="@+id/repo_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -27,6 +29,7 @@
 
     <TextView
         android:id="@+id/repo_issue"
+        tools:text="Issue count = 8798789879879"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

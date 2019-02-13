@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.daggerhomework.R;
 import com.example.daggerhomework.contracts.RepoListContract;
-import com.example.daggerhomework.model.data.RepoDetailsModel;
 import com.example.daggerhomework.model.data.RepoModel;
 import com.example.daggerhomework.presenter.RepoListPresenter;
 import com.example.daggerhomework.view.repo.details.RepoDetailsActivity;
@@ -31,7 +30,7 @@ public class RepoListActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_repos);
+        setContentView(R.layout.repo_list);
         ButterKnife.bind(this);
         feedList.setAdapter(adapter);
         initPresenter();

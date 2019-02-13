@@ -47,11 +47,19 @@ public class RepoDetailsPresenter implements RepoDetailsContract.Presenter, Subs
 
     @Override
     public void setUser(String user) {
-        this.user = user;
+        if (user == null) {
+            this.user = "mojombo";
+        } else {
+            this.user = user;
+        }
     }
 
     @Override
     public void setRepo(String repo) {
-        this.repo = repo;
+        if (repo == null) {
+            this.repo = "god";
+        } else {
+            this.repo = repo;
+        }
     }
 }

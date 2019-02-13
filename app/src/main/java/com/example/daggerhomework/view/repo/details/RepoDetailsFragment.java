@@ -1,26 +1,25 @@
 package com.example.daggerhomework.view.repo.details;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.daggerhomework.R;
 import com.example.daggerhomework.contracts.RepoDetailsContract;
-import com.example.daggerhomework.contracts.UserContract;
 import com.example.daggerhomework.model.data.RepoDetailsModel;
 import com.example.daggerhomework.presenter.RepoDetailsPresenter;
-import com.example.daggerhomework.presenter.UserPresenter;
-import com.example.daggerhomework.view.user.UserDetailsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RepoDetailsActivity extends AppCompatActivity implements RepoDetailsContract.View {
-
-    private static final String USER_NAME = "extra_user_name";
-    private static final String REPO_NAME = "extra_repo_name";
+public class RepoDetailsFragment extends Fragment implements RepoDetailsContract.View {
+    private static final String ARG_USER = "param1";
+    private static final String ARG_REPO = "param2";
 
     @BindView(R.id.repo_name)
     TextView name;
@@ -33,18 +32,36 @@ public class RepoDetailsActivity extends AppCompatActivity implements RepoDetail
 
     private RepoDetailsContract.Presenter presenter;
 
-    public static Intent getIntentInstantce(Context context, String user, String repo) {
-        Intent intent = new Intent(context, RepoDetailsActivity.class);
-        intent.putExtra(USER_NAME, user);
-        intent.putExtra(REPO_NAME, repo);
-        return intent;
+    private String user;
+    private String repo;
+
+    public static Bundle getArgs(String user, String repo) {
+        Bundle args = new Bundle();
+        args.putString(ARG_USER, user);
+        args.putString(ARG_REPO, repo);
+        return args;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.repo_details);
-        ButterKnife.bind(this);
+        if (getArguments() != null) {
+            user = getArguments().getString(ARG_USER);
+            repo = getArguments().getString(ARG_REPO);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.repo_details, container, false);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initPresenter();
     }
 
@@ -72,8 +89,6 @@ public class RepoDetailsActivity extends AppCompatActivity implements RepoDetail
 
     private void initPresenter(){
         presenter = new RepoDetailsPresenter(this);
-        String user = getIntent().getStringExtra(USER_NAME);
-        String repo = getIntent().getStringExtra(REPO_NAME);
         presenter.setUser(user);
         presenter.setRepo(repo);
         presenter.loadData();
