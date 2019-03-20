@@ -12,7 +12,7 @@
         <action
             android:id="@+id/action_repoListFragment_to_repoDetailsFragment"
             app:destination="@id/repoDetailsFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
+            app:enterAnim="@anim/anim_in"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@+id/repoListFragment" />
         <action
@@ -32,4 +32,5 @@
         android:name="com.example.daggerhomework.view.user.UserDetailsFragment"
         android:label="fragment_user_details"
         tools:layout="@layout/user_details" />
+    <include app:graph="@navigation/bottom_navigation" />
 </navigation>

@@ -29,7 +29,8 @@ buildscript {
     ext.butterknife = "8.8.1"
     ext.glide = "4.8.0"
     ext.retrofit = "2.4.0"
-    ext.nav_version = "1.0.0-beta02"
+    ext.nav_version = "1.0.0"
+    ext.leak = "1.6.3"
 }
 
 dependencies {
@@ -58,7 +59,7 @@ dependencies {
     ///////////////////////////////////////////////////////////////////////////
     // RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
 
     ///////////////////////////////////////////////////////////////////////////
     // Network
@@ -68,7 +69,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation "com.squareup.okhttp3:logging-interceptor:3.12.1"
 
-
     ///////////////////////////////////////////////////////////////////////////
     // UI
     implementation "com.jakewharton:butterknife:$butterknife"
@@ -77,6 +77,6 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide"
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leak"
 }

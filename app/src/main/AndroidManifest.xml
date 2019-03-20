@@ -15,20 +15,21 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".view.NavExampleActivity"
+            android:label="@string/title_activity_nav_example"/>
+        <activity
             android:name=".view.NavigateActivity"
-            android:label="@string/title_activity_navigate">
+            android:label="@string/title_activity_navigate"/>
+        <activity android:name=".view.BaseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.BaseActivity">
-
-        </activity>
         <activity android:name=".view.repo.details.RepoDetailsActivity" />
         <activity android:name=".view.user.UserDetailsActivity" />
-        <activity android:name=".view.repo.list.RepoListActivity"></activity>
+        <activity android:name=".view.repo.list.RepoListActivity" />
     </application>
 
 </manifest>

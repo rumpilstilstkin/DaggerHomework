@@ -4,20 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_navigation"
     app:startDestination="@id/repoListFragment2">
-
     <fragment
         android:id="@+id/repoListFragment2"
         android:name="com.example.daggerhomework.view.repo.list.RepoListFragment"
         android:label="RepoListFragment"
-        tools:layout="@layout/repo_list" />
-    <fragment
-        android:id="@+id/userDetailsFragment2"
-        android:name="com.example.daggerhomework.view.user.UserDetailsFragment"
-        android:label="user_details"
-        tools:layout="@layout/user_details" />
+        tools:layout="@layout/repo_list">
+        <action
+            android:id="@+id/action_repoListFragment2_to_userDetailsFragment2"
+            app:destination="@id/userDetailsFragment2" />
+        <action
+            android:id="@+id/action_repoListFragment2_to_repoDetailsFragment2"
+            app:destination="@id/repoDetailsFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/repoDetailsFragment2"
         android:name="com.example.daggerhomework.view.repo.details.RepoDetailsFragment"
         android:label="repo_details"
         tools:layout="@layout/repo_details" />
+    <fragment
+        android:id="@+id/userDetailsFragment2"
+        android:name="com.example.daggerhomework.view.user.UserDetailsFragment"
+        android:label="user_details"
+        tools:layout="@layout/user_details" />
 </navigation>
