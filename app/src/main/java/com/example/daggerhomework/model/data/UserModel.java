@@ -1,8 +1,8 @@
 package com.example.daggerhomework.model.data;
 
-import android.support.annotation.Nullable;
-
 import com.google.gson.annotations.SerializedName;
+
+import androidx.annotation.Nullable;
 
 public class UserModel {
     @Nullable

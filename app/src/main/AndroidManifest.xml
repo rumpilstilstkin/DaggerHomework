@@ -16,10 +16,13 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".view.NavExampleActivity"
-            android:label="@string/title_activity_nav_example"/>
+            android:label="@string/title_activity_nav_example">
+        </activity>
         <activity
             android:name=".view.NavigateActivity"
-            android:label="@string/title_activity_navigate"/>
+            android:label="@string/title_activity_navigate">
+
+        </activity>
         <activity android:name=".view.BaseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

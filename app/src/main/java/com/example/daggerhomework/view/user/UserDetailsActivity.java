@@ -2,9 +2,7 @@ package com.example.daggerhomework.view.user;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +12,7 @@ import com.example.daggerhomework.model.data.UserModel;
 import com.example.daggerhomework.presenter.UserPresenter;
 import com.example.daggerhomework.view.GlideApp;
 
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -1,9 +1,6 @@
 package com.example.daggerhomework.view.user;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +13,9 @@ import com.example.daggerhomework.model.data.UserModel;
 import com.example.daggerhomework.presenter.UserPresenter;
 import com.example.daggerhomework.view.GlideApp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -79,7 +79,7 @@ public class UserDetailsFragment extends Fragment implements UserContract.View{
     public void showUser(UserModel user) {
         name.setText(user.login);
         GlideApp
-                .with(this)
+                .with(requireContext())
                 .load(user.imageUrl)
                 .into(image);
     }
