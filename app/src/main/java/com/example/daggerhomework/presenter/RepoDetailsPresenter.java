@@ -1,5 +1,6 @@
 package com.example.daggerhomework.presenter;
 
+import com.example.daggerhomework.GitApplication;
 import com.example.daggerhomework.contracts.RepoDetailsContract;
 import com.example.daggerhomework.model.data.RepoDetailsModel;
 import com.example.daggerhomework.model.repository.RepoRepository;
@@ -7,16 +8,20 @@ import com.example.daggerhomework.model.repository.RepoRepository;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import javax.inject.Inject;
+
 public class RepoDetailsPresenter implements RepoDetailsContract.Presenter, Subscriber<RepoDetailsModel> {
 
-    private RepoRepository repository;
+    @Inject
+    RepoRepository repository;
+
     private RepoDetailsContract.View view;
     private String user;
     private String repo;
 
     public RepoDetailsPresenter(RepoDetailsContract.View view) {
         this.view = view;
-        repository = new RepoRepository();
+        GitApplication.getComponentInstance().inject(this);
     }
 
     @Override
@@ -41,17 +46,14 @@ public class RepoDetailsPresenter implements RepoDetailsContract.Presenter, Subs
     }
 
     @Override
-    public void loadData() {
+    public void loadData(String user, String repo) {
+        this.user = user;
+        this.repo = repo;
         repository.getRepoByNameAndUser(user, repo).subscribe(this);
     }
 
     @Override
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    @Override
-    public void setRepo(String repo) {
-        this.repo = repo;
+    public void updateData() {
+        repository.getRepoByNameAndUser(user, repo).subscribe(this);
     }
 }

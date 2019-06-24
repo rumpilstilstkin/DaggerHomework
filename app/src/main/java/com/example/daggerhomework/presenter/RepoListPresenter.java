@@ -1,5 +1,6 @@
 package com.example.daggerhomework.presenter;
 
+import com.example.daggerhomework.GitApplication;
 import com.example.daggerhomework.contracts.RepoListContract;
 import com.example.daggerhomework.model.data.RepoModel;
 import com.example.daggerhomework.model.repository.RepoRepository;
@@ -9,14 +10,18 @@ import org.reactivestreams.Subscription;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class RepoListPresenter implements RepoListContract.Presenter, Subscriber<List<RepoModel>> {
 
-    private RepoRepository repository;
+    @Inject
+    RepoRepository repository;
+
     private RepoListContract.View view;
 
     public RepoListPresenter(RepoListContract.View view) {
         this.view = view;
-        repository = new RepoRepository();
+        GitApplication.getComponentInstance().inject(this);
     }
 
     @Override

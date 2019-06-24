@@ -11,8 +11,7 @@ public interface RepoDetailsContract {
     }
 
     interface Presenter {
-        void setUser(String user);
-        void setRepo(String repo);
-        void loadData();
+        void loadData(String user, String repo);
+        void updateData();
     }
 }
