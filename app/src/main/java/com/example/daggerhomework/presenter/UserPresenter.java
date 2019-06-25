@@ -1,6 +1,8 @@
 package com.example.daggerhomework.presenter;
 
-import com.example.daggerhomework.GitApplication;
+
+import android.util.Log;
+
 import com.example.daggerhomework.contracts.UserContract;
 import com.example.daggerhomework.model.data.UserModel;
 import com.example.daggerhomework.model.repository.UserRepository;
@@ -8,19 +10,26 @@ import com.example.daggerhomework.model.repository.UserRepository;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-import javax.inject.Inject;
-
 public class UserPresenter implements UserContract.Presenter, Subscriber<UserModel> {
 
-    @Inject
     UserRepository repository;
 
     private UserContract.View view;
-    private String user;
+    private String user = "";
 
-    public UserPresenter(UserContract.View view) {
+    public UserPresenter(UserRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public void attach(UserContract.View view) {
         this.view = view;
-        GitApplication.getComponentInstance().inject(this);
+    }
+
+    @Override
+    public void detach() {
+        this.view = null;
+        Log.d("Dto", "detach");
     }
 
     @Override

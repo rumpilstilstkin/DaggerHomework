@@ -1,6 +1,5 @@
 package com.example.daggerhomework.presenter;
 
-import com.example.daggerhomework.GitApplication;
 import com.example.daggerhomework.contracts.RepoDetailsContract;
 import com.example.daggerhomework.model.data.RepoDetailsModel;
 import com.example.daggerhomework.model.repository.RepoRepository;
@@ -8,20 +7,26 @@ import com.example.daggerhomework.model.repository.RepoRepository;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-import javax.inject.Inject;
-
 public class RepoDetailsPresenter implements RepoDetailsContract.Presenter, Subscriber<RepoDetailsModel> {
 
-    @Inject
     RepoRepository repository;
 
     private RepoDetailsContract.View view;
     private String user;
     private String repo;
 
-    public RepoDetailsPresenter(RepoDetailsContract.View view) {
+    public RepoDetailsPresenter(RepoRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public void attach(RepoDetailsContract.View view) {
         this.view = view;
-        GitApplication.getComponentInstance().inject(this);
+    }
+
+    @Override
+    public void detach() {
+        this.view = null;
     }
 
     @Override
@@ -31,25 +36,24 @@ public class RepoDetailsPresenter implements RepoDetailsContract.Presenter, Subs
 
     @Override
     public void onNext(RepoDetailsModel repoDetailsModel) {
-        view.showRepo(repoDetailsModel);
+        if(view != null) view.showRepo(repoDetailsModel);
     }
 
     @Override
     public void onComplete() {
-        view.finishLoading();
+        if(view != null) view.finishLoading();
     }
 
     @Override
     public void onError(Throwable e) {
         e.printStackTrace();
-        view.showError(e.getLocalizedMessage());
+        if(view != null) view.showError(e.getLocalizedMessage());
     }
 
     @Override
-    public void loadData(String user, String repo) {
+    public void setData(String user, String repo) {
         this.user = user;
         this.repo = repo;
-        repository.getRepoByNameAndUser(user, repo).subscribe(this);
     }
 
     @Override

@@ -1,21 +1,23 @@
 package com.example.daggerhomework;
 
+
 import android.app.Application;
 
-import com.example.daggerhomework.di.DaggerSingletonComponent;
-import com.example.daggerhomework.di.SingletonComponent;
+import com.example.daggerhomework.di.AppComponent;
+import com.example.daggerhomework.di.DaggerAppComponent;
+
 
 public class GitApplication extends Application {
 
-    private static SingletonComponent component;
+    private static AppComponent component;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        component = DaggerSingletonComponent.create();
+        component = DaggerAppComponent.create();
     }
 
-    public static SingletonComponent getComponentInstance(){
+    public static AppComponent getComponentInstance(){
         return component;
     }
 }

@@ -1,10 +1,9 @@
 package com.example.daggerhomework.view.repo.list;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
+
+import com.example.daggerhomework.GitApplication;
 import com.example.daggerhomework.R;
 import com.example.daggerhomework.contracts.RepoListContract;
 import com.example.daggerhomework.model.data.RepoModel;
@@ -14,13 +13,19 @@ import com.example.daggerhomework.view.user.UserDetailsActivity;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RepoListActivity extends AppCompatActivity
         implements RepoListContract.View, RepoListAdapter.Listener {
 
-    private RepoListContract.Presenter presenter;
+    @Inject
+    RepoListPresenter presenter;
 
     @BindView(R.id.feed_list)
     RecyclerView feedList;
@@ -33,12 +38,10 @@ public class RepoListActivity extends AppCompatActivity
         setContentView(R.layout.activity_repos);
         ButterKnife.bind(this);
         feedList.setAdapter(adapter);
-        initPresenter();
-    }
 
-    private void initPresenter() {
-        presenter = new RepoListPresenter(this);
-        presenter.loadData();
+        GitApplication.getComponentInstance().inject(this);
+        getLifecycle().addObserver(presenter);
+        presenter.attach(this);
     }
 
     @Override

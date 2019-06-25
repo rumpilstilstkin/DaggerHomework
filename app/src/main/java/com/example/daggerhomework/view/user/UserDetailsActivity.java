@@ -1,18 +1,22 @@
 package com.example.daggerhomework.view.user;
 
+
 import android.content.Context;
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.daggerhomework.GitApplication;
 import com.example.daggerhomework.R;
 import com.example.daggerhomework.contracts.UserContract;
 import com.example.daggerhomework.model.data.UserModel;
 import com.example.daggerhomework.presenter.UserPresenter;
 import com.example.daggerhomework.view.GlideApp;
 
+import javax.inject.Inject;
+
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,7 +30,8 @@ public class UserDetailsActivity extends AppCompatActivity implements UserContra
     @BindView(R.id.profile_image)
     ImageView image;
 
-    private UserContract.Presenter presenter;
+    @Inject
+    UserPresenter presenter;
 
     public static Intent getIntentInstantce(Context context, String user) {
         Intent intent = new Intent(context, UserDetailsActivity.class);
@@ -39,7 +44,12 @@ public class UserDetailsActivity extends AppCompatActivity implements UserContra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
         ButterKnife.bind(this);
-        initPresenter();
+
+        GitApplication.getComponentInstance().inject(this);
+        getLifecycle().addObserver(presenter);
+        String user = getIntent().getStringExtra(USER_NAME);
+        presenter.setUser(user);
+        presenter.attach(this);
     }
 
     @Override
@@ -64,12 +74,5 @@ public class UserDetailsActivity extends AppCompatActivity implements UserContra
                 .with(this)
                 .load(user.imageUrl)
                 .into(image);
-    }
-
-    private void initPresenter() {
-        presenter = new UserPresenter(this);
-        String user = getIntent().getStringExtra(USER_NAME);
-        presenter.setUser(user);
-        presenter.loadData();
     }
 }

@@ -1,6 +1,6 @@
 package com.example.daggerhomework.presenter;
 
-import com.example.daggerhomework.GitApplication;
+
 import com.example.daggerhomework.contracts.RepoListContract;
 import com.example.daggerhomework.model.data.RepoModel;
 import com.example.daggerhomework.model.repository.RepoRepository;
@@ -10,18 +10,25 @@ import org.reactivestreams.Subscription;
 
 import java.util.List;
 
-import javax.inject.Inject;
 
 public class RepoListPresenter implements RepoListContract.Presenter, Subscriber<List<RepoModel>> {
 
-    @Inject
     RepoRepository repository;
 
     private RepoListContract.View view;
 
-    public RepoListPresenter(RepoListContract.View view) {
+    public RepoListPresenter(RepoRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public void attach(RepoListContract.View view) {
         this.view = view;
-        GitApplication.getComponentInstance().inject(this);
+    }
+
+    @Override
+    public void detach() {
+        this.view = null;
     }
 
     @Override
@@ -31,18 +38,18 @@ public class RepoListPresenter implements RepoListContract.Presenter, Subscriber
 
     @Override
     public void onNext(List<RepoModel> repoModels) {
-        view.showRepos(repoModels);
+        if(view != null) view.showRepos(repoModels);
     }
 
     @Override
     public void onComplete() {
-        view.finishLoading();
+        if(view != null)  view.finishLoading();
     }
 
     @Override
     public void onError(Throwable e) {
         e.printStackTrace();
-        view.showError(e.getLocalizedMessage());
+        if(view != null)  view.showError(e.getLocalizedMessage());
     }
 
     @Override
